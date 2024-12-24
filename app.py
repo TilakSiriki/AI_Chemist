@@ -5,17 +5,14 @@ import google.generativeai as genai
 from PIL import Image
 import base64
 
-# Load environment variables
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-# Function to get Gemini response
 def get_gemini_response(input, image, prompt):
     model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content([input, image, prompt])
     return response.text
 
-# Function to resize the image input
 def input_image_setup(uploaded_file, max_width=600, max_height=400):
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
@@ -33,15 +30,12 @@ def input_image_setup(uploaded_file, max_width=600, max_height=400):
     else:
         raise FileNotFoundError("No File Uploaded")
 
-# Function to encode image in base64
 def get_base64_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode()
 
-# Encode the background image
 background_image_base64 = get_base64_image("AI_chemist_background.jpg")
 
-# Input prompt for the AI model
 input_prompt = """
 You are an expert pharmaceutical chemist. Examine the image of the tablets and provide details in the following format:
 
@@ -51,10 +45,8 @@ You are an expert pharmaceutical chemist. Examine the image of the tablets and p
 4. Include any notable specifications or distinguishing characteristics.
 """
 
-# Page configuration
 st.set_page_config(page_title="AI Chemist App", page_icon="💊", layout="wide")
 
-# Background Image and CSS Styling
 st.markdown(
     f"""
     <style>
@@ -129,11 +121,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Page header
 st.markdown("<h1 class='header'>🧪 AI Chemist App 💊</h1>", unsafe_allow_html=True)
 st.markdown("<p class='description'>Upload an image of tablets, and let AI analyze it for you!</p>", unsafe_allow_html=True)
 
-# Layout with columns for input and image uploader
 col1, col2 = st.columns([2, 1])
 
 with col1:
@@ -142,15 +132,12 @@ with col1:
 with col2:
     uploaded_file = st.file_uploader("Upload an image of tablets (JPG, JPEG, PNG):", type=["jpg", "jpeg", "png"])
 
-# Display the uploaded image with resized dimensions
 if uploaded_file:
-    image = input_image_setup(uploaded_file)  # Resize the image here
-    st.image(image, caption="Uploaded Image", use_container_width=False)  # Display resized image
+    image = input_image_setup(uploaded_file) p
+    st.image(image, caption="Uploaded Image", use_container_width=False)
 
-# Submit button with custom styling
 submit = st.button("🔍 Analyze Image")
 
-# Display the response in a styled container
 if submit:
     if uploaded_file:
         with st.spinner("Analyzing the image... 🧪"):
