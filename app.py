@@ -1,13 +1,13 @@
 import streamlit as st
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import os
 import google.generativeai as genai
 from PIL import Image
 import base64
 
 # Load environment variables
-load_dotenv()
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+#load_dotenv()
+genai.configure(api_key=${{secrets.GOOGLE_API_KEY}})
 
 # Function to get Gemini response
 def get_gemini_response(input, image, prompt):
