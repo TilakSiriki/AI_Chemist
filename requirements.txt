@@ -3,6 +3,6 @@ streamlit_extras
 google-generativeai>=0.1.0
 python-dotenv
 PyPDF2
-Pillow==9.5.0 --only-binary=:all:
+Pillow>=10.0.0
 
 
